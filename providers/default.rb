@@ -26,7 +26,7 @@ action :install do
             else
               Gem::Package.build(gemspec)
             end
-      inst = ::Gem::DependencyInstaller.new
+      inst = ::Gem::DependencyInstaller.new(new_resource.options)
       inst.install gem
       Gem.clear_paths
     end
