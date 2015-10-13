@@ -26,7 +26,11 @@ action :install do
             else
               Gem::Package.build(gemspec)
             end
-      inst = ::Gem::DependencyInstaller.new(new_resource.options)
+      options = {
+        :build_docs_in_background => new_resource.rdoc
+      }
+      options[:document] = [] unless new_resource.rdoc
+      inst = ::Gem::DependencyInstaller.new(options)
       inst.install gem
       Gem.clear_paths
     end
